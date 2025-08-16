@@ -1,0 +1,383 @@
+\documentclass[10pt,landscape]{article}
+\usepackage{amssymb,amsmath,amsthm,amsfonts}
+\usepackage{multicol,multirow}
+\usepackage{calc}
+\usepackage{ifthen}
+\usepackage[landscape]{geometry}
+\usepackage[colorlinks=true,citecolor=blue,linkcolor=blue]{hyperref}
+
+\ifthenelse{\lengthtest { \paperwidth = 11in}}
+    { \geometry{top=.5in,left=.5in,right=.5in,bottom=.5in} }
+	{\ifthenelse{ \lengthtest{ \paperwidth = 297mm}}
+		{\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm} }
+		{\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm} }
+	}
+\pagestyle{empty}
+\makeatletter
+\renewcommand{\section}{\@startsection{section}{1}{0mm}%
+                                {-1ex plus -.5ex minus -.2ex}%
+                                {0.5ex plus .2ex}%x
+                                {\normalfont\normalsize\bfseries}}
+\renewcommand{\subsection}{\@startsection{subsection}{2}{0mm}%
+                                {-1ex plus -.5ex minus -.2ex}%
+                                {0.5ex plus .2ex}%
+                                {\normalfont\small\bfseries}}
+\renewcommand{\subsubsection}{\@startsection{subsubsection}{3}{0mm}%
+                                {-1ex plus -.5ex minus -.2ex}%
+                                {1ex plus .2ex}%
+                                {\normalfont\small\bfseries}}
+\makeatother
+\setcounter{secnumdepth}{0}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt plus 0.5ex}
+% -----------------------------------------------------------------------
+
+\title{MAST90105 Cheat Sheet for Enoch Ko (147938)}
+
+\begin{document}
+
+\raggedright
+\footnotesize
+
+%\begin{center}
+%     \Large{\textbf{MAST90105 Cheat Sheet for Enoch Ko (147938)}} \\
+%\end{center}
+\begin{multicols}{3}
+\setlength{\premulticols}{1pt}
+\setlength{\postmulticols}{1pt}
+\setlength{\multicolsep}{1pt}
+\setlength{\columnsep}{2pt}
+
+\subsection{Key Theorems}
+CLT: When $n\ge30$, $\bar{X} \approx N \left(\mu, \frac {\sigma^2}{n} \right)$.\\
+Weak LLN: $P(|\bar{X}-\mu| > \epsilon) \rightarrow 0, \text{ as }n \rightarrow \infty$
+
+\subsection{Conditional Probabilities}
+Conditional Probability: $P(A|B) = \frac{P(A \cap B)}{P(B)}$\\
+$P(A \cap B) = P(B|A) P(A) = P(A|B) P(B)$\\
+$f_{Y|X} (y|x) =  \frac {f_{X, Y} (x, y)}{f_x (x)} = \frac {f_{X|Y} (x|y) f_Y (y)}{f_x (x)}$
+
+\subsection{Bayes}
+Law of Total Probability:
+$P(B) = \sum_{i=1}^n P(B|A_i)P(A_i)$\\
+Bayes Theorem:
+$P(A|B) = \frac{P(B|A)P(A)}{P(B)} = \frac{P(B|A)P(A)}{\sum_{i=1}^n P(B|A_i)P(A_i)}$\\
+
+\subsection{Linearity}
+$E(aX + bY) = aE(X) + bE(Y)$\\
+$Var(aX + bY) = a^2 \cdot Var(X) + b^2 \cdot Var(Y) + 2ab\cdot Cov(X, Y)$\\
+$Cov(aX, bY) = ab\cdot Cov(X,Y)$\\
+
+\subsection{Summary Statistics}
+$E(X)=\sum_{i=1}^n x_i p_i = \int_{-\infty}^\infty x_i f(x) dx$\\
+$Var(X) = E[(X-E(X))^2]=E(X^2)-E(X)^2$\\
+$Cov(X,Y) = E[(X - E(X))(Y-E(Y))] = E[(X-\mu_X)(Y-\mu_Y)]$\\
+$\rho_{X, Y} = \frac {Cov(X,Y)}{\sigma_X \sigma_Y}, -1 \le \rho_{X, Y} \le 1$\\\
+
+
+\subsection{Quantile}
+$\pi_p = F^{-1}(p)$ $\iff$ $F(\pi_p) = P(X \le \pi_p) = \int_{-\infty}^{\pi_p} f(x) dx = p$\\
+
+\subsection{Mean Square Error}
+$MSE = \frac{1}{n} \sum_{i=1}^n (Y_i-\hat{Y_i})^2$\\
+$ED= \sqrt{\sum_{i=1}^n (x_i-b)^2} = \sqrt{ n \cdot E[(X-b)^2]}$\\
+
+\subsection{Moment Generating Function \& Moments}
+$M_X(t) = E(e^{tX}) = \sum e^{tx} P(X=x) = \int e^{tx} f(x)$;\\
+$E(X) = M'(0)$;
+$Var(X) = M''(0)-[M'(0)]^2$\\
+$Skew(X) = \gamma = E\left[ \left( \frac {X-\mu} {\sigma} \right)^3 \right] = \frac {E[(X-\mu)^3]} {\sigma^3}$\\
+$Kurt(X) = \kappa = E \left[ \left( \frac{X-\mu}{\sigma} \right)^4 \right] \ge 0 = \frac{E[(X-\mu)^4]}{[E(X-\mu)^2]^2} = \frac{\mu_4}{\sigma^4}$\\
+
+\subsection{Multinomial Distribution}
+$X \sim Multinom(n, \vec{p}) \sim Multinom(n, (p_1, \dots, p_k))$\\
+$\displaystyle f(x) = \frac{n!}{x_1!\dots x_k!} p_1^{x_1}\dots p_k^{x_k}$\\
+$E(X_i) = np_i $; $Var(X_i) = np_i(1-p_i)$\\
+$Cov(X_i, X_j) = -np_ip_j \qquad (i \neq j)$\\
+$\rho(X_i,X_j) = \frac{Cov(X_i,X_j)}{\sqrt{Var(X_i)Var(X_j)} } = -\sqrt{\frac{p_i p_j}{(1-p_i)(1-p_j)} }$\\
+
+\subsection{Exponential Distribution}
+PDF: $f(x) = \lambda e^{-\lambda x} = \frac {1}{\theta} e^{-x / \theta}$\\
+CDF: $F(x) = 1 - e^{-\lambda x} = 1 - e^{-x / \theta}$\\
+
+\subsection{Gamma Distribution}
+If $X \sim \Gamma(\alpha, \beta)$, and $Y = cX$, then $Y \sim \Gamma(\alpha, \beta/c) = \Gamma(\alpha, \frac{\beta}{c})$\\
+If $X \sim \Gamma(n, \beta)$, then $2\beta X \sim \Gamma(n, 1/2) = \Gamma(2n/2, 1/2) = \chi^2(2n)$\\
+
+\subsection{Chi-Square Distribution}
+$X \sim \chi^2 (r) \longrightarrow X \sim Gamma \left( \alpha =  \frac{r}{2}, \lambda = \frac{1}{2} \right)$\\
+$X \sim \chi^2(2) = X \sim Gamma(\alpha = 1, \lambda = \frac{1}{2}) = X \sim Exp(\lambda = \frac{1}{2})$\\
+$f(x) = \frac{1}{2^{n/2} \Gamma(n/2)} x^{n/2-1} e^{-x/2}$; $E(X) = r$; $Var(X) = 2r$\\
+$\sum_{i=1}^n Z_i^2 \sim \chi^2(n)$\\
+
+\subsubsection{For n=1 Only, Can Use Standard Normal:}
+CDF: $P(X \le x) =  P(-\sqrt{x} \le Z \le \sqrt{x}) = \Phi(\sqrt{x})-\Phi(-\sqrt{x})$\\
+PDF: $f_X(x) = \frac{1}{2\sqrt{x} } \left[ \phi(\sqrt{x}) + \phi (-\sqrt{x}) \right]  =  \frac{1}{\sqrt{2\pi}\sqrt{x} } e^{-\frac{x}{2} }$\\
+
+\subsection{Standard Normal Distribution: Z=N(0,1) }
+$E(Z) = E(Z^3) = 0; Var(Z) =  E(Z^2) = 1; E(Z^4) = 3$\\
+$\phi(z) = f(z) = \frac{1}{\sqrt{2\pi} } \exp \left[ { -\frac{z^2}{2} } \right]$\\
+$\Phi(z) = F(z) = P(Z \le z) = \int_{-\infty}^z \frac {1} {\sqrt{2\pi } } e^{-x^2/2} dx$
+$Corr(X, Y) =E(XY) = E(\rho Z_1^2 + \sqrt{1-\rho^2} Z_1 Z_2) = \rho$\\
+
+\subsection{Standard Bivariate Normal Distribution}
+$X^*=\frac{(X-\mu_X)}{\sigma_X} = Z_1, Y^*=\rho Z_1+\sqrt{1-\rho^2}Z_2$\\
+$\rho_{X,Y}=Corr(X,Y)=Cov(X, Y)=Cov(Z_1,\rho Z_1+\sqrt{1-\rho^2}Z_2)$\\
+$=\rho Cov(Z_1,Z_1)+\sqrt{1-\rho^2}Cov(Z_1,Z_2)=\rho$\\
+
+\subsubsection{General Bivariate Normal Distribution (BVN)}
+$aX+bY+c \sim N[a\mu_X+b\mu_Y+c,(a\sigma_X)^2+(b\sigma_Y)^2]$
+$X=\mu_X+\sigma_XZ_1, Y=\mu_Y+\sigma_Y(\rho Z_1+\sqrt{1-\rho^2}Z_2)$\\
+$f(x,y) = \frac{1}{2\pi \sigma_X \sigma_Y \sqrt{1-\rho^2} } \times \exp \left[-\frac{z^2_x(x) - 2\rho z_X(x)z_Y(y) + z_Y^2 (y) }{2 (1-\rho^2)}\right]$\\
+
+\subsubsection{Conditional Bivariate Normal Distribution}
+$E[Y|X=x]=\mu_Y+\rho\sigma_Yz_X(x) = \mu_Y+\rho\sigma_Y\frac{x-\mu_X}{\sigma_X}$\\
+$Var(Y|X=x)=\sigma^2_Y(1-\rho^2)Var(Z_2)=(1-\rho^2)\sigma^2_Y$\\
+
+\subsection{Student's t Distribution}
+$T \sim t_n: T = \frac{\sqrt{r}Z}{\sqrt{R} } = \frac{Z}{\sqrt{R/r} }, Z\sim N(0,1), R\sim \chi^2(r), indp.$\\
+$E(T) = E(Z) \cdot E \left(\frac{1}{\sqrt{V/n} } \right) = 0, \text{ if }r>1$, by independence.\\
+$Var(T)=\frac{r}{r-2}, \text{ if }r>2; \infty, \text{ if }1<r\le 2$; otherwise undefined.\\
+When $n>30$, assume equal to Normal.\\
+
+\subsection{Sum of n iid distribution}
+$\sum_{i=1}^n Bern(p) = Bin(n, p)$\\
+$\sum_{i=1}^n Bin(n, p) = Bin(mn, p)$\\
+$\sum_{i=1}^n exp(rate = \lambda) = \Gamma (n, \lambda)$\\
+$\sum_{i=1}^n \Gamma (\alpha, \beta) = \Gamma(n \alpha, \beta)$\\
+$\sum_{i=1}^n N(\mu, \sigma^2) = N(\sum_{i=1}^n \mu_i, \sum_{i=1}^n \sigma_i^2)$\\
+$\sum_{i=1}^n c_i X_i \sim N(\sum_{i=1}^n c_i \mu_i, \sum_{i=1}^n c_i^2 \sigma_i^2)$\\
+
+\subsection{Sample Statistics}
+\subsubsection{Sample Proportion}
+$\hat{p} = \frac{\sum x}{N}$; $\mu_{\hat{p} } = p$; $\sigma_{\hat{p} } = \sqrt{ \frac{pq}{n} }, \text{ where }q = 1-p$,  \\
+
+\subsubsection{Sample Mean}
+$\bar{X} \sim N(\mu, \frac{\sigma^2}{n})$ $\implies$ $\bar{X} = \frac{1}{n} \sum_{i=1}^n X_i$\\
+$E(\bar{X}) = E(X_1) = \mu ; Var(\bar{X}) = \frac {Var(X_1)}{n} = \frac {\sigma^2}{n} \approx \frac{S^2}{n}$\\
+
+\subsubsection{Sample Variance}
+If $X_1, X_t, \dots, X_n \stackrel{iid}{\sim} N(\mu, \sigma^2)$: $\frac{(n-1)S^2}{\sigma^2} \sim \chi^2(n-1)$\\
+$S^2 = \frac{1}{n-1} \sum_{i=1}^n (X_i-\bar{X})^2 $\\
+$E(S^2) = \sigma^2$; $Var(S^2) = \frac{2\sigma^4}{n-1}$\\
+
+\subsubsection{Analysis of Variance Identity}
+$\sum_{i=1}^n (x_i-\mu)^2 = \sum_{i=1}^n (x_i-\bar{x})^2+n(\bar{x}-\mu)^2$\\
+
+\subsection{Order Statistic}
+k-th order statistic $=y_k$, where $y$ is ordered from minimum to maximum.\\
+$y_k \approx F^{-1}(\frac{k}{n})$\\
+
+\subsection{Point Estimates}
+Sample mean $\bar{x}$ - population/distribution mean $\mu$.\\
+Sample standard deviation $s$ - distribution standard deviation $\sigma$
+Sample histogram - pdf/pmf of distribution.
+Sample mean/sd close to distribution parameter.
+
+\subsection{MLE}
+$L(\hat{\theta}) = \prod_{i=1}^n f(x_i; \hat{\theta})$;
+$\ell(\hat{\theta}) = \ln L(\hat{\theta}) = \ln \prod_{i=1}^n f(x_i; \hat{\theta}) = \sum_{i=1}^n \ln f(x_i; \hat{\theta})$;
+$\ell'(\hat{\theta}) = \frac{\partial \ell(\hat{\theta})}{d\hat{\theta}} = 0$;
+$\ell''(\hat{\theta}) = \frac{\partial^2 \ell(\hat{\theta})}{d\hat{\theta}^2} < 0$.
+
+\subsubsection{Fisher Information \& CRLB}
+$I_n(\theta) = E[I_O(\theta)] = E\left[-\frac{d^2}{d\theta^2} \ell(\theta)\right]$
+$I_1(\theta) = E\left[-\frac{d^2}{d\theta^2} \ln f(x;\theta)\right]$
+$CRLB = V(\hat{\Theta}) = I_n(\theta)^{-1} = \frac{1}{I_n(\theta)}  = \frac{1}{n I_1(\theta)} $
+
+\subsubsection{MLE for Bernoulli}
+$L(p) = \prod_{i=1}^n f(x_i;p) = p^{\sum x_i} (1-p)^{n-\sum x_i}$;
+$\ell(p) = \ln L(p) = x \ln p + (n-x) \ln (1-p)$;
+$\ell(p)' = \frac{\partial \ell(p)}{\partial p} = x \frac{1}{p} + (n-x) \frac{-1}{1-p} = 0$;
+$\ell(p)'' = \frac{\partial^2 \ell(p)}{\partial p^2} = -x \frac{1}{p^2} - (n-x) \frac{1}{(1-p)^2} < 0$.
+
+\subsubsection{MLE for Exponential}
+$L(\theta) = \frac{1}{\theta^n} \exp\left({\frac{\sum_{i=1}^n x_i}{\theta}}\right)$;
+$\ell (\theta) = \ln L(\theta) = -n \ln{\theta} - \frac{1}{\theta} \sum_{i=1}^n x_i$;
+$\ell' (\theta) = \frac{\partial \ell(\theta)}{\partial\theta}  = - \frac{n}{\theta} + \frac{\sum{x_i}}{\theta^2,} = 0$;
+
+\subsubsection{MLE for Normal}
+$\ell (\mu, \sigma^2) = \frac{n}{2} \left[-\ln(2\pi)+\ln\left(\frac{1}{\sigma^2}\right)-\frac{\sum_{i=1}^n (x_i-\mu)^2}{n\sigma^2} \right] = \frac{n}{2} \left[-\ln(2\pi)+\ln\left(\frac{1}{\sigma^2}\right)-\frac{v+(\bar{x}-\mu)^2}{\sigma^2} \right]$ where $v=\frac{\sum_{i=1}^n (x_i-\bar{x})^2}{n}.$\\
+$\hat\mu = \bar{X}, E(\hat\mu) = \mu, Var(\hat\mu) = \frac{\sigma^2}{n}.$
+$\hat\sigma^2=\frac{1}{n}\sum(X_i-\bar{X})^2=\frac{n-1}{n}S^2$,$E(\hat\sigma^2)=\frac{n-1}{n}\sigma^2$
+
+\subsection{Method of Moments Estimator}
+If CDF $F(x)$ involves $x^k$, then try the $k$-th moment.
+Use sample estimators = distribution moments:
+$E(X) = \mu = \bar{X}$;
+$E(X^2) =  Var(X) + E(X)^2$.
+$E(X_k) \approx \dfrac{1}{n}\sum X_i^k$
+
+\subsection{Bayesian Posterior-Prior Probabilities}
+[Posterior] $f(p|x) \propto f(p)\cdot L(p|x)$ [Prior x Likelihood of data]
+Expected squared loss = mean of posterior.
+Expected absolute value loss = median of posterior.
+
+\subsection{Confidence Interval}
+\subsubsection{Pivots}
+Known $\sigma$, data normal: $\frac{\bar{x}-\mu}{\sigma/\sqrt{n}}\sim N(0,1)$\\
+\begin{tabular}{|l|l|l|l|}\hline
+$H_0$ & $H_1$ & Critical Region & Critical Region\\\hline
+$\mu=\mu_0$ &$\mu>\mu_0$& $z\ge z_\alpha$&$\bar{x}\ge\mu_0+z_\alpha\sigma/\sqrt{n}$\\\hline
+$\mu=\mu_0$ &$\mu<\mu_0$& $z\le z_\alpha$&$\bar{x}\le\mu_0-z_\alpha\sigma/\sqrt{n}$\\ \hline
+$\mu=\mu_0$ &$\mu\neq \mu_0$& $|z|\ge z_{\alpha/2}$&$|\bar{x}-\mu_0|\ge z_\alpha\sigma/\sqrt{n}$\\ \hline
+\end{tabular}
+
+Known $\sigma$, data not normal: CLT, $\frac{\bar{x}-\mu}{S/\sqrt{n}}\approx N(0,1)$\\
+Unknown $\sigma$, data normal: t-dist: $\frac{\bar{x}-\mu}{S/\sqrt{n}}\sim t(n-1)$\\
+\begin{tabular}{|l|l|l|l|}\hline
+$H_0$ & $H_1$ & Critical Region & Critical Region\\\hline
+$\mu=\mu_0$ &$\mu>\mu_0$& $t\ge t_\alpha$&$\bar{x}\ge\mu_0+t_\alpha s/\sqrt{n}$\\\hline
+$\mu=\mu_0$ &$\mu<\mu_0$& $t\le t_\alpha$&$\bar{x}\le\mu_0-t_\alpha s/\sqrt{n}$\\ \hline
+$\mu=\mu_0$ &$\mu\neq \mu_0$& $|t|\ge t_{\alpha/2}$&$|\bar{x}-\mu_0|\ge t_\alpha s/\sqrt{n}$\\ \hline
+\end{tabular}
+
+Unknown $\sigma$, data not normal, n large: CLT, $\frac{\bar{x}-\mu}{S/\sqrt{n}}\approx N(0,1)$\\
+Unknown $\sigma$, data not normal, n small: Non-parametric/distribution-free test.\\
+
+Gamma: $E(\bar{X}) = \theta = \mu \implies\frac{\sum_{i=1}^n X_i}{\mu} \sim \Gamma(n, 1)$
+$P\left(\frac{\sum_{i=1}^n X_i}{\gamma_{1-\alpha/2} } \le \mu \le \frac{\sum_{i=1}^n X_i}{\gamma_{\alpha/2} } \right)=1-\alpha$
+
+\subsubsection{Differences}
+Normal sample, $\sigma^2_X, \sigma^2_Y$ known: $\frac{\bar{X}-\bar{Y}-(\mu_X-\mu_Y)}{\sqrt{\sigma_X^2/n + \sigma_Y^2/m} } \le z_{\alpha/2} \sim N(0,1)$;\\
+Large sample, $\sigma^2_X, \sigma^2_Y$ unknown: $\frac{\bar{X}-\bar{Y}-(\mu_X-\mu_Y)}{\sqrt{S_X^2/n + S_Y^2/m} } \le z_{\alpha/2} \approx N(0,1)$;\\
+Small sample, $\sigma^2_X, \sigma^2_Y$ unknown, var=equal: $T = \frac{\bar{X}-\bar{Y}-(\mu_X-\mu_Y)}{S_P\sqrt{1/n + 1/m} } \sim t_{n+m-2}$, $S_P = \sqrt{\frac{(n-1)S^2_X + (m-1)S^2_Y}{n+m-2} }$.\\
+Small sample, $\sigma^2_X, \sigma^2_Y$ unknown, var different: Welch $W = \frac{\bar{X}-\bar{Y}-(\mu_X-\mu_Y)}{\sqrt{S_X^2/n + S_Y^2/m} } \sim t_r$;\\
+
+\subsubsection{Paired Difference}
+$D_i = X_i-Y_i \implies \mu_D = \mu_X-\mu_Y$; $D_i, \mu_D \sim N$;\\
+Pivot: $\frac{\bar{d}-\mu_d}{s_d/\sqrt{n} } \sim t(n-1)$, $s_d^2 = \frac{1}{n-1} \sum_{i=1}^n (d_i-\bar{d})^2$.\\
+
+\subsubsection{Bernoulli}
+$100(1-\alpha)\%CI = \hat{p}\pm z_{\alpha/2} \sqrt{\frac{\hat{p}(1-\hat{p})}{n} }$\\
+
+\subsubsection{Proportions}
+$Z=\frac{Y-np_0}{\sqrt{np_0(1-p_0)} }\approx N(0,1)$;
+$z=\frac{y/n-p_0}{\sqrt{p_0(1-p_0)/n} } \ge z_\alpha$.\\
+\begin{tabular}{|l|l|l|}\hline
+$H_0$ & $H_1$ & Critical Region\\\hline
+$p=p_0$ &$p>p_0$& $z\ge z_\alpha$\\\hline
+$p=p_0$ &$p<p_0$& $z\le z_\alpha$\\ \hline
+$p=p_0$ &$p\neq p_0$& $|z|\ge z_{\alpha/2}$\\ \hline
+\end{tabular}
+
+$Z=\frac{Y_1/n_1-Y_2/n_2-(p_1-p_2)}{\sqrt{p_1(1-p_1)/n_1+p_2(1-p_2)/n_2} }\approx N(0,1)$;
+$z=\frac{\hat{p_1}-\hat{p_2} }{\sqrt{\hat{p}(1-\hat{p})(1/n_1+1/n_2)} } > z_\alpha, \hat{p_1} = \frac{y_1}{n_1}, \hat{p_2} = \frac{y_2}{n_2}, \hat{p} = \frac{y_1+y_2}{n_1+n_2}$.\\
+\begin{tabular}{|l|l|l|}\hline
+$H_0$ & $H_1$ & Critical Region\\\hline
+$p_1=p_2$&$p_1>p_2$& $z> z_\alpha$\\\hline
+$p_1=p_2$&$p_1<p_2$& $z < -z_\alpha$\\ \hline
+$p_1=p_2$&$p_1\neq p_2$& $|z|\ge z_{\alpha/2}$\\ \hline
+\end{tabular}
+
+
+\subsection{Regression}
+Model: $Y_i \sim N (\alpha + \beta (x_i-\bar{x}), \sigma^2); \hat\alpha\sim N(\alpha, \sigma^2/n); \hat\beta\sim N(\beta, \sigma^2/\sum(x_i-\bar{x})^2).$\\
+Residual: $R_i =  Y_i - \hat{Y_i}$.\\
+
+$L(\alpha, \beta, \sigma^2) = \left(\frac{1}{\sqrt{2\pi\sigma^2} }\right)^n\exp\left\{-\frac{\sum_{i=1}^n[Y_i-\alpha-\beta(x_i-\bar{x})]^2}{2\sigma^2}\right\}$;\\
+$-\ell(\alpha, \beta, \sigma^2) = \frac{n}{2} \ln (2\pi\sigma^2)  +\frac{\sum_{i=1}^n[Y_i-\alpha-\beta(x_i-\bar{x})]^2}{2\sigma^2}$\\
+
+$\alpha=\bar{Y}$;
+$E(\hat\alpha)=\frac{\sum E(Y_i)}{n} = \frac{1}{n}\sum[\alpha+\beta(x_i-\bar{x})] = \alpha$;
+$Var(\hat\alpha)=(\frac{1}{n})^2\sum Var(Y_i) = \frac{\sigma^2}{n}$.\\
+
+$\hat\beta = \frac{\sum(x_i-\bar{x})Y_i}{\sum(x_i-\bar{x})^2}$;
+$E(\hat\beta) = \frac{\sum(x_i-\bar{x})E(Y_i)}{\sum(x_i-\bar{x})^2} = \frac{\sum(x_i-\bar{x})\alpha}{\sum(x_i-\bar{x})^2}+\frac{\sum(x_i-\bar{x})^2\beta}{\sum(x_i-\bar{x})^2} = \beta$;
+$Var(\hat\beta) = Var\left(\sum\frac{(x_i-\bar{x})}{\sum(x_i-\bar{x})^2}Y_i \right)= \frac{\sigma^2}{\sum(x_i-\bar{x})^2}.$\\
+
+$S^2=\frac{\sum[Y_i-\hat\alpha-\hat\beta(x_i-\bar{x}]^2}{n-2} \implies \frac{(n-2)S^2}{\sigma^2}\sim\chi^2_{n-2}$.\\
+
+$T_\alpha=\frac{(\hat\alpha-\alpha)}{S/\sqrt{n}}\sim t_{n-2}$;
+$T_\beta=\frac{(\hat\beta-\beta)}{S/\sqrt{\sum(x_i-\bar{x})^2}}\sim t_{n-2}$.
+
+\subsection{Hypothesis Testing}
+\begin{tabular}{|l|l|l|}\hline
+& Not Significant& Significant\\\hline
+$H_0$ true&True Neg ($1-\alpha$)& T1 - False Pos ($\alpha$)\\\hline
+$H_1$ true&T2 - False Neg ($\beta$)& True Pos ($1-\beta$)\\ \hline
+\end{tabular}
+
+\subsection{Distribution-Free Tests}
+Sign Test: Number of Positive vs Negative.
+$X = \text{[count of negatives]} \sim Binom(n, p)$.
+Note: $P(X\ge x) = 1-P(X\le x-1)$. [e.g. $P(X\ge 9) = 1-P(X\le 8)$]
+
+\subsubsection{Wilcoxon One-Sample Signed Rank Test}
+Assume continuous and symmetrical.
+Rank $|X_i-m_0|$.
+$W  = \sum (\text{sign} \times \text{rank})$.
+$E(W) = 0$;
+$Var(W_i) = E(W^2_i ) = i^2$;
+$Var(W)=\sum_{i=1}^n Var(W_i) =\sum_{i=1}^n i^2= \frac{n(n+1)(2n+1)}{6}$.
+$Z=\frac{W-0}{\sqrt{n(n+1)(2n+1)/6}} \approx N(0,1)$.
+
+\subsubsection{Wilcoxon Two-Sample Test}
+Order the combined sample.
+$\mu_W = E(W) =n^2(n^1+n^2+1)$;
+$\sigma^2_W = Var(W) =\frac{n^1n^2(n^1+n^2+1)}{12}$.
+$Z=\frac{W-\mu_W}{\sigma_W}\approx N(0,1)$.
+
+\subsection{Chi-Square Goodness of Fit}
+$Z=\frac{Y_1-np_1}{\sqrt{np_1(1-p_1)}}\approx N(0,1)$;
+$Q_1 = Z^2 \approx \chi^2_1$ for large n.\\
+$Q_1 = \sum \frac{(Y_i-np_i)^2}{np_i} = \sum \frac{(O_i-E_i)^2}{E_i} \approx \chi^2_1$;
+$Q_{k-1} = \sum \frac{(Y_i-np_i)^2}{np_i} = \sum \frac{(O_i-E_i)^2}{E_i} \approx \chi^2_{k-1}$.
+
+\subsection{Inverse CDF}
+Uniform $U(a,b) \mapsto F^{-1}(p) = a+p(b-a)$.\\
+Exponential $Exp(\lambda) \mapsto F^{-1}(p) = -\frac{1}{\lambda} \ln(1-p)$.\\
+General Normal $N(\mu,\sigma^2) \mapsto F^{-1}(p) = \mu+\sigma\Phi^{-1}(p)$
+
+\subsection{Differentiation Rules}
+$f(t) = t^n \mapsto f'(t) = n t^{n-1}$\\
+$f(t) = e^{\alpha t} \mapsto f'(t) = \alpha e^{\alpha t}$\\
+$f(x) = \ln(x) \mapsto f'(x) = \frac{1}{x}$\\
+$f(x) = \frac{a}{(b-x)^n} \mapsto f'(x) = (-)-an(b-x)^{-n-1} = an(b-x)^{-n-1} $\\
+$h(x) = f(g(x)) \mapsto h'(x) = f'(g(x)) \cdot g'(x)$\\
+$\frac{dz}{dx} = \frac{dz}{dy} \cdot \frac{dy}{dx}$\\
+$(f \cdot g)' = f \cdot g' + f' \cdot g$\\
+$(cf)' = c f'$\\
+$\left( \frac{N}{D} \right) ' = \frac{DN' - ND'}{D^2}$\\
+
+\subsection{Integration Rules}
+$f(x) = x^n, n \neq -1 \mapsto F(x) = \frac{1}{n+1} \; x^{n+1} + C$\\
+$f(x) = e^{\alpha x} \mapsto F(x) = \frac{1}{\alpha} \; x^{\alpha x} + C$\\
+$f(x) = \frac{1}{x} \mapsto F(x) = \ln x + C$\\
+$f(x) = \alpha^x, (\alpha > 0) \mapsto F(x) = \frac{\alpha^x}{\ln \alpha} + C$\\
+$f(x) = xe^{ax}, \mapsto F(x) = \frac{e^{ax}(ax - 1)}{a^2}$\\
+$\int_{g(a)}^{g(b)} f(x)\; dx = \int_{a}^{b} f(g(y))\; g'(y) \; dy $\\
+$\int_a^b u(x) \; v'(x) \; dx = \Big[u(x) v(x) \Big]_a^b - \int_a^b u'(x)\; v(x)\; dx$\\
+
+\subsection{Logarithm Rules}
+$\log_b \frac{M}{N} = log_b M - log_b N$\\
+$\log_b MN = log_b M + log_b N$\\
+$\log_b b^k = k \times log_b b = k \times 1$\\
+
+\subsection{Min/Max of Random Variables}
+$Y_n = \text{Max}\{X_i\}_{i=1}^n \implies F_{Y_n}(y) = P(X\le y)^n = F_X(y)^n$.\\
+$Y_1 = \text{Min}\{X_i\} \implies F_{Y_1}(y) = 1-[1-P(X\le y)]^n = 1-[1-F_X(y)]^n$.\\
+
+\subsection{Binomial Theorem}
+$(x + y)^n  = \sum_{k=0}^n \binom {n}{k} x^k y^{n-k} = \sum_{k=0}^n \binom {n}{k} x^{n-k} y^k $\\
+$x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}$
+
+\subsection{DeMorgan's Law}
+$(A \cap B)' = A' \cup B' \qquad ; \qquad (A \cup B)' = A' \cap B'$\\
+
+\subsection{Gamma Function}
+$\Gamma(a) = \int_0^\infty x^{a-1} e^{-x} dx, \text{ for real }a > 0$.\\
+$\Gamma(n) =(n-1)!, \text{ for } n \text{ is a positive integer}$.\\
+$\Gamma(x+1) = x \Gamma(x)$, OR, $\Gamma(x) = (x-1) \Gamma(x-1)$.\\
+$\Gamma \left(\frac{1}{2} \right) = \sqrt{\pi}$.\\
+$\Gamma \left(\frac{3}{2} \right) = \frac{1}{2} \Gamma \left(\frac{1}{2} \right) = \frac{1}{2} \sqrt{\pi}$ .\\
+$\Gamma(1) = 1$.
+\vfill
+Last updated:
+2025-06-21 T12-50-22
+\hrule
+Enoch Ko (147938), University of Melbourne.\\
+$180/35 = 5$ mins/mark. $1 \mapsto 5 // 2 \mapsto 10 //3 \mapsto 15 // 4 \mapsto 20 // 5 \mapsto 25 // 6 \mapsto 30$\\
+$8:45 \text{(start)} // 9:15 \mapsto 6 // 9:45 \mapsto 12 // 10:15 \mapsto 18 // 10:45 \mapsto 24 // 11:15 \mapsto 30 // 11:45 \mapsto 35 \text{ (end)}$
+\end{multicols}
+\end{document}
